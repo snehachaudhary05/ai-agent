@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+*.pyo
+*.py.backup
+
+# Local env — set secrets in deployment dashboard
+.env
+
+# Runtime output — created at startup
+generated_websites/
+website_states/
+site_data/
+static/
+backend.log
+image_cache.json
+
+# Dev files
+.claude/

@@ -1,0 +1,581 @@
+/* ═══════════════════════════════════════════════════════════════
+   Onboarding — clean, modern SaaS wizard
+   Design tokens: indigo #6366f1 / slate neutrals / white card
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Root ────────────────────────────────────────────────────── */
+.ob-root {
+  min-height: 100vh;
+  background: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+  color: #0f172a;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.ob-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px;
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.ob-brand {
+  font-size: 17px;
+  font-weight: 700;
+  color: #6366f1;
+  letter-spacing: -0.4px;
+}
+.ob-step-counter {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* ── Progress bar ────────────────────────────────────────────── */
+.ob-progress-track {
+  height: 3px;
+  background: #e2e8f0;
+}
+.ob-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Main / Card ─────────────────────────────────────────────── */
+.ob-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 20px 80px;
+}
+.ob-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 44px;
+  width: 100%;
+  max-width: 540px;
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.06),
+    0 4px 16px rgba(0,0,0,0.07);
+  animation: ob-fadein 0.28s ease;
+}
+@keyframes ob-fadein {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Step inner layout ───────────────────────────────────────── */
+.ob-step {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.ob-step-head { margin-bottom: 2px; }
+.ob-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+.ob-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.55;
+}
+.ob-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+.ob-back:hover { color: #6366f1; }
+
+/* ── Inputs ──────────────────────────────────────────────────── */
+.ob-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 11px;
+  font-size: 15px;
+  color: #0f172a;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.ob-input:focus {
+  border-color: #6366f1;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+.ob-input::placeholder { color: #c1c9d8; }
+.ob-input-xl {
+  font-size: 18px;
+  padding: 15px 18px;
+}
+.ob-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 11px;
+  font-size: 14px;
+  color: #0f172a;
+  background: #f8fafc;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  box-sizing: border-box;
+}
+.ob-textarea:focus {
+  border-color: #6366f1;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+
+/* ── Primary nav button ──────────────────────────────────────── */
+.ob-primary-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+  font-family: inherit;
+}
+.ob-primary-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(99,102,241,0.35);
+}
+.ob-primary-btn:disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ── Step 2 · Business type grid ─────────────────────────────── */
+.ob-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.ob-type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 10px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  background: #f8fafc;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.17s, background 0.17s, transform 0.17s;
+}
+.ob-type-card:hover {
+  border-color: #6366f1;
+  background: #eef2ff;
+  transform: translateY(-2px);
+}
+.ob-type-emoji { font-size: 26px; }
+.ob-type-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Step 2 · selling-type confirmation */
+.ob-confirm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.ob-confirm-yes {
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: opacity 0.15s;
+}
+.ob-confirm-yes:hover { opacity: 0.9; }
+.ob-confirm-alt {
+  padding: 13px 18px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.ob-confirm-alt:hover {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+/* ── Step 4 · Style selector ─────────────────────────────────── */
+.ob-style-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.ob-style-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 13px;
+  background: #f8fafc;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color 0.17s, background 0.17s;
+}
+.ob-style-card:hover, .ob-style-selected {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+.ob-style-selected {
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+}
+.ob-style-swatch {
+  width: 50px;
+  height: 38px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.ob-style-text { display: flex; flex-direction: column; gap: 2px; }
+.ob-style-name { font-size: 14px; font-weight: 600; color: #0f172a; }
+.ob-style-desc { font-size: 12px; color: #64748b; }
+
+/* ── Step 5 · Color picker ───────────────────────────────────── */
+.ob-color-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ob-color-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ob-color-input {
+  width: 54px;
+  height: 54px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 3px;
+  background: none;
+}
+.ob-color-hex {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.ob-quick-colors {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+.ob-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.ob-dot:hover, .ob-dot-active {
+  border-color: #0f172a;
+  transform: scale(1.18);
+}
+.ob-ai-color-btn {
+  padding: 12px 18px;
+  border: 1.5px dashed #c7d2fe;
+  border-radius: 12px;
+  background: #eef2ff;
+  color: #6366f1;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.18s;
+}
+.ob-ai-color-btn:hover, .ob-ai-active {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ── Step 6 · Products / Services ───────────────────────────── */
+.ob-items-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+.ob-items-scroll::-webkit-scrollbar { width: 4px; }
+.ob-items-scroll::-webkit-scrollbar-track { background: transparent; }
+.ob-items-scroll::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 4px; }
+
+.ob-item-card {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 13px;
+  background: #f8fafc;
+}
+.ob-item-row-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ob-item-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6366f1;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+.ob-remove {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+.ob-remove:hover { background: #fee2e2; color: #ef4444; }
+.ob-add-btn {
+  width: 100%;
+  padding: 11px;
+  border: 1.5px dashed #c7d2fe;
+  border-radius: 12px;
+  background: #eef2ff;
+  color: #6366f1;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.ob-add-btn:hover { background: #e0e7ff; }
+
+/* ── Step 6 · Per-item image upload ─────────────────────────── */
+.ob-item-img-row { margin-top: 2px; }
+
+.ob-item-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1.5px dashed #c7d2fe;
+  border-radius: 9px;
+  background: #eef2ff;
+  color: #6366f1;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.ob-item-upload-btn:hover {
+  background: #e0e7ff;
+  border-color: #a5b4fc;
+}
+
+.ob-item-thumb-wrap {
+  position: relative;
+  display: inline-block;
+}
+.ob-item-thumb {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1.5px solid #e2e8f0;
+  display: block;
+}
+.ob-item-thumb-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ── Step 7 · Photos ─────────────────────────────────────────── */
+.ob-choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ob-choice-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  background: #f8fafc;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: border-color 0.17s, background 0.17s, transform 0.17s;
+}
+.ob-choice-card:hover {
+  border-color: #6366f1;
+  background: #eef2ff;
+  transform: translateY(-1px);
+}
+.ob-choice-icon { font-size: 26px; flex-shrink: 0; }
+.ob-choice-text { display: flex; flex-direction: column; gap: 3px; }
+.ob-choice-title { font-size: 15px; font-weight: 600; color: #0f172a; }
+.ob-choice-sub   { font-size: 13px; color: #64748b; }
+
+.ob-upload-list { display: flex; flex-direction: column; gap: 10px; }
+.ob-upload-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 15px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  gap: 12px;
+}
+.ob-upload-info { display: flex; flex-direction: column; gap: 2px; }
+.ob-upload-label { font-size: 14px; font-weight: 600; color: #0f172a; }
+.ob-upload-hint  { font-size: 12px; color: #94a3b8; }
+.ob-upload-btn {
+  padding: 8px 14px;
+  border-radius: 9px;
+  background: #eef2ff;
+  color: #6366f1;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid #c7d2fe;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+.ob-upload-btn:hover { background: #6366f1; color: #fff; border-color: #6366f1; }
+.ob-uploaded { background: #d1fae5; color: #059669; border-color: #6ee7b7; }
+.ob-uploaded:hover { background: #059669; color: #fff; border-color: #059669; }
+
+/* ── Step 8 · Contact ────────────────────────────────────────── */
+.ob-contact-grid { display: flex; flex-direction: column; gap: 12px; }
+.ob-contact-field { display: flex; flex-direction: column; gap: 5px; }
+.ob-field-label { font-size: 13px; font-weight: 600; color: #374151; }
+.ob-required { color: #ef4444; }
+.ob-opt { font-weight: 400; color: #94a3b8; }
+
+/* ── Submit button ───────────────────────────────────────────── */
+.ob-submit-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+  transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+  margin-top: 4px;
+}
+.ob-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(99,102,241,0.38);
+}
+.ob-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.ob-submitting { opacity: 0.85; }
+
+/* Spinner */
+.ob-spinner {
+  width: 17px;
+  height: 17px;
+  border: 2.5px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: ob-spin 0.65s linear infinite;
+}
+@keyframes ob-spin { to { transform: rotate(360deg); } }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 580px) {
+  .ob-card    { padding: 28px 22px; }
+  .ob-title   { font-size: 19px; }
+  .ob-main    { padding: 28px 14px 60px; }
+  .ob-type-grid { grid-template-columns: 1fr; }
+  .ob-header  { padding: 12px 18px; }
+}

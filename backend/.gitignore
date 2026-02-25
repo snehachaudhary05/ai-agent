@@ -1,0 +1,19 @@
+# Environment variables — set these in Render dashboard
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.py.backup
+
+# Runtime output (auto-created on startup)
+generated_websites/
+website_states/
+site_data/
+static/
+image_cache.json
+backend.log
+
+# Credentials (never commit secrets)
+*.json

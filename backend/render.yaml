@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: ai-website-builder-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn autonomous_agent:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_MODEL
+        value: google/gemma-3-27b-it:free
+      - key: PEXELS_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: VERCEL_TOKEN
+        sync: false
+      - key: PYTHONIOENCODING
+        value: utf-8
