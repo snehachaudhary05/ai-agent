@@ -14,6 +14,7 @@ function ResultView({ result, userData, onStartOver }) {
   const [deployedUrl, setDeployedUrl]   = useState(result.deployment_url || null)
   const [deploying, setDeploying]       = useState(false)
   const [downloading, setDownloading]   = useState(false)
+  const [previewOpen, setPreviewOpen]   = useState(false)
 
   const generatePreviewHTML = () => {
     const btype     = userData?.businessType || 'business'
@@ -662,9 +663,13 @@ function ResultView({ result, userData, onStartOver }) {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const openPreview = () => {
-    const html = generatePreviewHTML()
-    const blob = new Blob([html], { type: 'text/html' })
-    window.open(URL.createObjectURL(blob), '_blank')
+    if (window.innerWidth <= 768) {
+      setPreviewOpen(true)
+    } else {
+      const html = generatePreviewHTML()
+      const blob = new Blob([html], { type: 'text/html' })
+      window.open(URL.createObjectURL(blob), '_blank')
+    }
   }
 
   const downloadFiles = async () => {
@@ -807,7 +812,7 @@ function ResultView({ result, userData, onStartOver }) {
           </div>
         </div>
 
-        {/* Right panel — inline preview */}
+        {/* Right panel — inline preview (desktop only) */}
         <div className="result-right">
           <div className="result-preview-bar">
             <span className="result-preview-dot red" />
@@ -823,6 +828,29 @@ function ResultView({ result, userData, onStartOver }) {
           />
         </div>
       </div>
+
+      {/* Fullscreen preview modal — mobile only */}
+      {previewOpen && (
+        <div className="result-preview-modal">
+          <div className="result-preview-modal-bar">
+            <div style={{display:'flex',alignItems:'center',gap:'6px',flex:1,minWidth:0}}>
+              <span className="result-preview-dot red" />
+              <span className="result-preview-dot yellow" />
+              <span className="result-preview-dot green" />
+              <span className="result-preview-url" style={{marginLeft:'8px'}}>
+                {userData?.businessName?.toLowerCase().replace(/\s+/g,'-')}.vercel.app
+              </span>
+            </div>
+            <button className="result-preview-modal-close" onClick={() => setPreviewOpen(false)}>✕</button>
+          </div>
+          <iframe
+            className="result-iframe"
+            srcDoc={generatePreviewHTML()}
+            title="Website Preview"
+            sandbox="allow-scripts allow-same-origin"
+          />
+        </div>
+      )}
     </div>
   )
 }
