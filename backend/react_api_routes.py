@@ -17,6 +17,7 @@ from pixabay_helper import get_service_images
 from professional_copywriter import copywriter
 from image_proxy import proxy_service_images
 import openrouter_helper
+import groq_helper
 
 # Create router
 router = APIRouter(prefix="/api/react", tags=["React & Deployment"])
@@ -135,17 +136,27 @@ Return ONLY valid JSON:
         )
         print("[SUCCESS] Professional copy generated!")
 
-        # Generate per-service AI descriptions (OpenRouter)
+        # Generate per-service AI descriptions (OpenRouter → Groq fallback)
         service_descriptions = copy_data.get("service_descriptions", {})
-        if not service_descriptions and openrouter_helper.is_available():
-            print("[OPENROUTER] Generating per-service descriptions...")
-            service_descriptions = openrouter_helper.generate_service_descriptions(
-                services=request.services,
-                business_name=request.business_name,
-                business_type=request.business_type,
-                location=request.location or "",
-                service_categories=request.service_categories or [],
-            )
+        if not service_descriptions:
+            if openrouter_helper.is_available():
+                print("[OPENROUTER] Generating per-service descriptions...")
+                service_descriptions = openrouter_helper.generate_service_descriptions(
+                    services=request.services,
+                    business_name=request.business_name,
+                    business_type=request.business_type,
+                    location=request.location or "",
+                    service_categories=request.service_categories or [],
+                )
+            if not service_descriptions and groq_helper.is_available():
+                print("[GROQ] Generating per-service descriptions...")
+                service_descriptions = groq_helper.generate_service_descriptions(
+                    services=request.services,
+                    business_name=request.business_name,
+                    business_type=request.business_type,
+                    location=request.location or "",
+                    service_categories=request.service_categories or [],
+                )
             print("[SUCCESS] Service descriptions generated!")
 
         # Use Pexels images from onboarding if provided, otherwise fetch from Pixabay

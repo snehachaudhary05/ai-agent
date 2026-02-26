@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import JSZip from 'jszip'
 import Onboarding from './Onboarding'
+import { useTheme } from './useTheme'
 import './App.css'
 
 const API = import.meta.env.VITE_API_URL || ''
@@ -8,8 +10,10 @@ const API = import.meta.env.VITE_API_URL || ''
 // ─── Result View (shown after website is built) ───────────────────────────────
 
 function ResultView({ result, userData, onStartOver }) {
-  const [deployedUrl, setDeployedUrl] = useState(result.deployment_url || null)
-  const [deploying, setDeploying]     = useState(false)
+  const [theme, toggleTheme]            = useTheme()
+  const [deployedUrl, setDeployedUrl]   = useState(result.deployment_url || null)
+  const [deploying, setDeploying]       = useState(false)
+  const [downloading, setDownloading]   = useState(false)
 
   const generatePreviewHTML = () => {
     const btype     = userData?.businessType || 'business'
@@ -190,7 +194,7 @@ function ResultView({ result, userData, onStartOver }) {
     .about-bg{background:#f8fafc}
     .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
     .about-img{border-radius:24px;overflow:hidden;position:relative}
-    .about-img img{width:100%;height:460px;object-fit:cover;display:block}
+    .about-img img{width:100%;height:460px;object-fit:contain;display:block;background:#f8f9fa}
     .about-img-badge{position:absolute;bottom:24px;left:24px;background:#fff;border-radius:14px;padding:16px 20px;box-shadow:0 8px 32px rgba(0,0,0,0.15)}
     .about-img-badge strong{display:block;font-size:26px;font-weight:800;color:${color}}
     .about-img-badge span{font-size:12px;color:#64748b;font-weight:500}
@@ -455,8 +459,8 @@ function ResultView({ result, userData, onStartOver }) {
               : `<div style="width:100%;height:210px;background:linear-gradient(135deg,${colorLight} 0%,${color}44 100%);display:flex;align-items:center;justify-content:center;font-size:40px;">🖼️</div>`
           })()}
           <div class="item-card-body">
-            <h3>Premium ${item.name}</h3>
-            <p>${item.description || (result.service_descriptions && result.service_descriptions[item.name]) || `Elevate your experience with our premium ${item.name.toLowerCase()}, designed for the discerning customer.`}</p>
+            <h3>${item.name}</h3>
+            <p>${item.description || (result.service_descriptions && result.service_descriptions[item.name]) || `Discover our ${item.name.toLowerCase()} — crafted with care and delivered with expertise.`}</p>
             <div class="item-card-footer">
               ${item.price ? `<span class="item-price">${item.price}</span>` : `<span class="item-price" style="color:#94a3b8;font-size:14px">Contact for price</span>`}
               <button class="item-btn">${isProduct ? 'Order Now' : 'Book Now'}</button>
@@ -631,7 +635,7 @@ function ResultView({ result, userData, onStartOver }) {
     </div>
     <div class="footer-bottom" data-anim="fadeUp" data-delay="0.1s">
       <span class="footer-copy">© 2025 ${bname}. All rights reserved.</span>
-      <span class="footer-built">Built with WebBuilder AI</span>
+      <span class="footer-built">Built with Sitekraft</span>
     </div>
   </div>
 </footer>
@@ -663,24 +667,94 @@ function ResultView({ result, userData, onStartOver }) {
     window.open(URL.createObjectURL(blob), '_blank')
   }
 
-  const downloadFiles = () => {
-    if (!result.files) return
-    Object.entries(result.files).forEach(([name, content]) => {
-      const blob = new Blob([content], { type: 'text/plain' })
-      const a    = document.createElement('a')
-      a.href     = URL.createObjectURL(blob)
-      a.download = name
+  const downloadFiles = async () => {
+    if (!result.files || downloading) return
+    setDownloading(true)
+    try {
+      const zip = new JSZip()
+      const projectName = userData?.businessName
+        ? userData.businessName.toLowerCase().replace(/\s+/g, '-')
+        : 'sitekraft-website'
+
+      // ── Step 1: collect all external image URLs from generated files ────────
+      const isImageUrl = (url) => {
+        if (!url || !url.startsWith('http')) return false
+        return (
+          /images\.pexels\.com/.test(url) ||
+          /cdn\.pixabay\.com/.test(url) ||
+          /pixabay\.com\/get/.test(url) ||
+          /picsum\.photos/.test(url) ||
+          /\.(?:jpg|jpeg|png|webp|gif|svg)(\?|$)/i.test(url)
+        )
+      }
+      const urlRegex = /https?:\/\/[^\s"'`\\,\)\]]+/g
+      const urlToLocal = new Map()   // externalURL → "public/images/image-N.ext"
+      let imgIdx = 0
+
+      Object.values(result.files).forEach(content => {
+        const matches = content.match(urlRegex) || []
+        matches.forEach(raw => {
+          const url = raw.replace(/[",`']+$/, '')   // strip trailing quotes/commas
+          if (isImageUrl(url) && !urlToLocal.has(url)) {
+            const extMatch = url.match(/\.(jpg|jpeg|png|webp|gif|svg)/i)
+            const ext = extMatch ? extMatch[1].toLowerCase() : 'jpg'
+            urlToLocal.set(url, `public/images/image-${imgIdx++}.${ext}`)
+          }
+        })
+      })
+
+      // ── Step 2: fetch images in parallel, add to ZIP ─────────────────────────
+      await Promise.allSettled(
+        Array.from(urlToLocal.entries()).map(async ([url, localPath]) => {
+          try {
+            const res = await fetch(url)
+            if (!res.ok) { urlToLocal.delete(url); return }
+            const blob = await res.blob()
+            zip.file(localPath, blob)
+          } catch {
+            urlToLocal.delete(url)   // keep original URL in code if fetch fails
+          }
+        })
+      )
+
+      // ── Step 3: add code files, rewriting fetched image URLs to local paths ──
+      Object.entries(result.files).forEach(([name, content]) => {
+        let modified = content
+        urlToLocal.forEach((localPath, url) => {
+          // Replace external URL with Vite public-asset path
+          modified = modified.split(url).join(`/${localPath.replace('public/', '')}`)
+        })
+        zip.file(name, modified)
+      })
+
+      // ── Step 4: generate ZIP and trigger download ─────────────────────────────
+      const blob = await zip.generateAsync({ type: 'blob' })
+      const a = document.createElement('a')
+      a.href = URL.createObjectURL(blob)
+      a.download = `${projectName}.zip`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
-    })
+      URL.revokeObjectURL(a.href)
+    } finally {
+      setDownloading(false)
+    }
   }
 
   return (
     <div className="result-root">
       <header className="result-header">
-        <div className="result-brand">✦ WebBuilder AI</div>
-        <button className="result-new-btn" onClick={onStartOver}>+ New Website</button>
+        <div className="result-brand">✦ Sitekraft</div>
+        <div className="result-header-right">
+          <button
+            className="result-theme-btn"
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          <button className="result-new-btn" onClick={onStartOver}>+ New Website</button>
+        </div>
       </header>
 
       <div className="result-body">
@@ -692,13 +766,6 @@ function ResultView({ result, userData, onStartOver }) {
             <p>{userData?.businessName} · {userData?.businessType}</p>
           </div>
 
-          {result.session_id && (
-            <div className="result-info-box">
-              <span className="result-info-label">Session ID</span>
-              <code className="result-session-id">{result.session_id}</code>
-              <span className="result-info-hint">Save this to edit your site later</span>
-            </div>
-          )}
 
           {deploying && (
             <div style={{background:'#eff6ff',border:'1px solid #bfdbfe',borderRadius:'10px',padding:'12px 16px',fontSize:'13px',color:'#1d4ed8',display:'flex',alignItems:'center',gap:'8px'}}>
@@ -728,8 +795,13 @@ function ResultView({ result, userData, onStartOver }) {
               👁 Open Preview
             </button>
             {result.files && (
-              <button className="result-btn result-btn-secondary" onClick={downloadFiles}>
-                💾 Download Files
+              <button
+                className="result-btn result-btn-secondary"
+                onClick={downloadFiles}
+                disabled={downloading}
+                style={downloading ? { opacity: 0.7, cursor: 'wait' } : {}}
+              >
+                {downloading ? '⏳ Preparing ZIP...' : '💾 Download ZIP'}
               </button>
             )}
           </div>

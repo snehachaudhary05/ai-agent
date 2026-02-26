@@ -1,13 +1,14 @@
 """
 Professional Copywriter Module
 Generates compelling, professional copy for websites.
-Uses OpenRouter first (if OPENROUTER_API_KEY is set), falls back to Gemini.
+Uses OpenRouter first, then Groq, then Gemini as fallbacks.
 """
 
 import os
 import json
 import google.generativeai as genai
 import openrouter_helper
+import groq_helper
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if GEMINI_API_KEY:
@@ -140,7 +141,24 @@ NO explanations, NO markdown, JUST the JSON."""
             if result:
                 print("[SUCCESS] OpenRouter copy generated!")
                 return result
-            print("[WARN] OpenRouter failed, falling back to Gemini...")
+            print("[WARN] OpenRouter failed, trying Groq...")
+
+        # ── Try Groq (fast LPU inference, OpenAI-compatible) ────────────────────
+        if groq_helper.is_available():
+            print("[COPYWRITER] Using Groq AI...")
+            result = groq_helper.generate_website_copy(
+                business_name=business_name,
+                business_type=business_type,
+                business_description=business_description,
+                services=services,
+                location=location,
+                style_vibe=style_vibe,
+                service_categories=service_categories,
+            )
+            if result:
+                print("[SUCCESS] Groq copy generated!")
+                return result
+            print("[WARN] Groq failed, falling back to Gemini...")
 
         try:
             response = self.model.generate_content(prompt)

@@ -1,10 +1,70 @@
+/* ── Design tokens — Light (default) ─────────────────────────── */
+:root {
+  --bg-page:        #f1f5f9;
+  --bg-card:        #ffffff;
+  --bg-input:       #f8fafc;
+  --bg-input-focus: #ffffff;
+  --bg-subtle:      #eef2ff;
+  --border:         #e2e8f0;
+  --border-focus:   #6366f1;
+  --border-accent:  #c7d2fe;
+  --text-primary:   #0f172a;
+  --text-secondary: #64748b;
+  --text-muted:     #94a3b8;
+  --accent:         #6366f1;
+  --accent-2:       #8b5cf6;
+  --accent-light:   #eef2ff;
+  --glow:           rgba(99,102,241,0.12);
+  --glow-strong:    rgba(99,102,241,0.28);
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.07);
+  --shadow-btn:     0 6px 18px rgba(99,102,241,0.35);
+  --header-bg:      rgba(255,255,255,0.92);
+  --progress-bg:    #e2e8f0;
+  --success-bg:     #d1fae5;
+  --success-color:  #059669;
+  --success-border: #6ee7b7;
+  --danger:         #ef4444;
+  --danger-bg:      #fee2e2;
+}
+
+/* ── Moonlight Dark theme ─────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg-page:        #0d1117;
+  --bg-card:        #161b2e;
+  --bg-input:       #1e2640;
+  --bg-input-focus: #232d4a;
+  --bg-subtle:      #1a2035;
+  --border:         #2a3550;
+  --border-focus:   #a78bfa;
+  --border-accent:  #4c3d8f;
+  --text-primary:   #e2e8f0;
+  --text-secondary: #8892a4;
+  --text-muted:     #5a6580;
+  --accent:         #8b5cf6;
+  --accent-2:       #a78bfa;
+  --accent-light:   #1e1a3a;
+  --glow:           rgba(139,92,246,0.15);
+  --glow-strong:    rgba(139,92,246,0.35);
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.4), 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-btn:     0 6px 24px rgba(139,92,246,0.45);
+  --header-bg:      rgba(13,17,23,0.92);
+  --progress-bg:    #1e2640;
+  --success-bg:     #0d2a1f;
+  --success-color:  #34d399;
+  --success-border: #065f46;
+  --danger:         #f87171;
+  --danger-bg:      #2a1515;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
-  background: #f1f5f9;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 #root { min-height: 100vh; }

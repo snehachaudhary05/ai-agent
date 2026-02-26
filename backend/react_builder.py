@@ -690,7 +690,7 @@ function About() {{
               <img
                 src="{about_image}"
                 alt="About {business_name}"
-                className="w-full h-[300px] md:h-[500px] object-cover"
+                className="w-full h-[300px] md:h-[500px] object-contain bg-gray-50"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </div>

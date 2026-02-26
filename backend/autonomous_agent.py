@@ -51,7 +51,7 @@ if not GEMINI_API_KEY:
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Initialize FastAPI
-app = FastAPI(title="AI Website Builder Agent")
+app = FastAPI(title="Sitekraft Agent")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -2854,7 +2854,7 @@ Note: This is a standalone website. All functionality is self-contained.
 @app.get("/")
 async def health_check():
     """Backend health check"""
-    return {"status": "ok", "service": "AI Website Builder API"}
+    return {"status": "ok", "service": "Sitekraft API"}
 
 
 

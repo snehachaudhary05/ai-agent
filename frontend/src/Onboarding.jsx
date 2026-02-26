@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+import { useTheme } from './useTheme'
 import './Onboarding.css'
 
 // ─── Image Utilities ───────────────────────────────────────────────────────────
@@ -342,6 +343,9 @@ function Step6({ data, update, next, back }) {
   const label     = isProduct ? 'Product' : 'Service'
   const hints     = BUSINESS_HINTS[data.businessType] || BUSINESS_HINTS.other
 
+  const lastCardRef  = useRef(null)
+  const prevLengthRef = useRef(data.items.length)
+
   const addItem = () =>
     update('items', [...data.items, { name: '', price: '', description: '', image: null, imagePreview: null, category: '', subcategory: '' }])
 
@@ -358,6 +362,15 @@ function Step6({ data, update, next, back }) {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Auto-scroll + focus when a new item is added
+  useEffect(() => {
+    if (data.items.length > prevLengthRef.current) {
+      lastCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      lastCardRef.current?.querySelector('input')?.focus()
+    }
+    prevLengthRef.current = data.items.length
+  }, [data.items.length])
+
   const canNext = data.items.length > 0 && data.items.every(i => i.name.trim())
 
   return (
@@ -370,7 +383,7 @@ function Step6({ data, update, next, back }) {
     >
       <div className="ob-items-scroll">
         {data.items.map((item, idx) => (
-          <div key={idx} className="ob-item-card">
+          <div key={idx} className="ob-item-card" ref={idx === data.items.length - 1 ? lastCardRef : null}>
             <div className="ob-item-row-head">
               <span className="ob-item-badge">{label} {idx + 1}</span>
               {data.items.length > 1 && (
@@ -594,6 +607,7 @@ function Step8({ data, update, back, onSubmit, loading }) {
 // ─── Root Component ───────────────────────────────────────────────────────────
 
 export default function Onboarding({ onComplete }) {
+  const [theme, toggleTheme] = useTheme()
   const [step, setStep]     = useState(1)
   const [loading, setLoading] = useState(false)
   const [data, setData]     = useState({
@@ -713,6 +727,105 @@ export default function Onboarding({ onComplete }) {
                 'palazzo':       'palazzo pants indian ethnic fashion woman',
                 'kurta':         'kurta indian ethnic wear man fashion',
               }
+              // Gym overrides: specific fitness class/activity visuals
+              const gymQueryOverrides = {
+                'zumba':          'zumba dance fitness class women energetic colourful',
+                'yoga':           'yoga class studio women meditation calm',
+                'boxing':         'boxing training gym punching bag gloves athlete',
+                'kickboxing':     'kickboxing martial arts training gym athlete',
+                'crossfit':       'crossfit gym workout athlete functional fitness',
+                'hiit':           'hiit high intensity interval training workout gym',
+                'pilates':        'pilates class studio reformer woman fitness',
+                'cardio':         'cardio running treadmill gym fitness athlete',
+                'swimming':       'swimming pool lane athlete training water',
+                'cycling':        'indoor cycling spin class gym fitness',
+                'spin':           'spin class indoor cycling bike gym',
+                'aerobics':       'aerobics fitness class women gym energetic',
+                'strength':       'strength training weight lifting gym dumbbell',
+                'weight training':'weight training gym dumbbell barbell athlete',
+                'personal training':'personal trainer client gym coaching fitness',
+                'martial arts':   'martial arts karate training dojo athlete',
+                'dance':          'dance fitness class studio women energetic',
+                'functional':     'functional fitness training gym athlete',
+                'muscle':         'muscle building gym bodybuilder dumbbell training',
+              }
+              // Coaching overrides: subject/exam specific study visuals
+              const coachingQueryOverrides = {
+                'neet':          'medical entrance exam preparation students studying books',
+                'jee':           'engineering entrance exam preparation students studying',
+                'iit':           'iit jee engineering exam preparation students notes',
+                'upsc':          'upsc civil services exam preparation student books',
+                'ias':           'upsc ias exam preparation notes student studying',
+                'cat':           'mba cat exam preparation students studying notes',
+                'gmat':          'gmat mba exam preparation student studying notes',
+                'ielts':         'ielts english language test preparation student',
+                'toefl':         'toefl english language test preparation student',
+                'spoken english':'english speaking class conversation students confident',
+                'english speaking':'english speaking class conversation students confident',
+                'english':       'english language learning class students whiteboard',
+                'mathematics':   'mathematics tutor student whiteboard equations classroom',
+                'maths':         'mathematics tutor student whiteboard equations classroom',
+                'physics':       'physics experiment lab students science classroom',
+                'chemistry':     'chemistry lab experiment students science',
+                'biology':       'biology students microscope lab science classroom',
+                'science':       'science students lab experiment classroom learning',
+                'computer':      'computer programming coding class students laptop',
+                'coding':        'coding programming class students laptop technology',
+                'python':        'python programming coding class students laptop',
+                'accounts':      'accounting finance class students professional study',
+                'commerce':      'commerce students classroom education books notes',
+                'drawing':       'art drawing class students creative sketch',
+                'music':         'music class guitar piano students learning',
+                'dance':         'dance class studio students learning performance',
+                'abacus':        'abacus mental math kids classroom learning',
+              }
+              // Restaurant overrides: match specific Indian/popular dishes to vivid food photography
+              const restaurantQueryOverrides = {
+                'biryani':        'biryani rice indian food plated restaurant',
+                'chicken biryani':'chicken biryani rice indian food plated',
+                'mutton biryani': 'mutton biryani rice indian food plated',
+                'dal makhani':    'dal makhani indian food lentil curry plated',
+                'butter chicken': 'butter chicken curry indian food plated restaurant',
+                'paneer':         'paneer indian food curry plated restaurant',
+                'naan':           'naan bread indian food restaurant baked',
+                'roti':           'roti chapati indian bread food restaurant',
+                'paratha':        'paratha indian flatbread food plated restaurant',
+                'dosa':           'dosa south indian food crepe plated restaurant',
+                'idli':           'idli sambar south indian food plated breakfast',
+                'thali':          'indian thali platter assorted food restaurant',
+                'pizza':          'pizza italian food plated restaurant cheesy',
+                'pasta':          'pasta italian food plated restaurant creamy',
+                'burger':         'burger sandwich food plated restaurant bun',
+                'sandwich':       'sandwich food plated restaurant fresh',
+                'momos':          'momos dumplings food steamed plated street food',
+                'sushi':          'sushi japanese food plated restaurant fresh',
+                'steak':          'steak grilled meat food plated restaurant',
+                'soup':           'soup bowl food plated restaurant warm',
+                'salad':          'salad fresh bowl food plated restaurant healthy',
+                'dessert':        'dessert sweet food plated restaurant elegant',
+                'cake':           'cake slice dessert food plated bakery',
+                'ice cream':      'ice cream scoop dessert food sweet colorful',
+                'coffee':         'coffee cup latte art cafe professional',
+                'smoothie':       'smoothie fruit drink colorful glass fresh',
+                'juice':          'fresh juice glass fruit colorful healthy',
+                'rolls':          'rolls wrap food plated street food fresh',
+                'kebab':          'kebab grilled meat skewer food plated restaurant',
+                'tandoori':       'tandoori grilled chicken food plated restaurant',
+                'curry':          'curry indian food bowl plated restaurant spicy',
+                'fried rice':     'fried rice chinese food plated restaurant wok',
+                'noodles':        'noodles chinese food plated restaurant wok',
+                'chowmein':       'chowmein chinese noodles food plated restaurant',
+                'manchurian':     'manchurian chinese food plated restaurant sauce',
+                'pav bhaji':      'pav bhaji indian street food plated restaurant',
+                'chole':          'chole bhature indian food plated restaurant',
+                'samosa':         'samosa indian snack food fried crispy plated',
+                'gulab jamun':    'gulab jamun indian sweet dessert plated restaurant',
+                'rasgulla':       'rasgulla indian sweet dessert plated restaurant',
+                'halwa':          'halwa indian sweet dessert plated restaurant',
+                'lassi':          'lassi indian yogurt drink glass restaurant',
+                'chai':           'masala chai tea cup indian drink restaurant',
+                'tea':            'tea cup hot drink saucer professional',
+              }
               // Real-estate overrides: map property types to vivid interior/exterior Pexels queries
               const realEstateQueryOverrides = {
                 'studio apartment':  'studio apartment interior modern minimal cozy',
@@ -743,9 +856,17 @@ export default function Onboarding({ onComplete }) {
               const nameLower = item.name.trim().toLowerCase()
               // Strip marketing prefixes (Premium, Special, etc.) so Pexels finds the actual food/item
               const cleanName = item.name.trim().replace(/^(premium|special|classic|deluxe|signature|house|royal|chef'?s?|fresh|homemade)\s+/i, '')
-              const salonOverride = data.businessType === 'salon' ? salonQueryOverrides[nameLower] : null
-              const clothingOverride = (data.businessType === 'clothing' || data.businessType === 'online-store') ? clothingQueryOverrides[nameLower] : null
-              const realEstateOverride = data.businessType === 'real-estate' ? realEstateQueryOverrides[nameLower] : null
+              // Find best override: check if item name CONTAINS any key (longest key first for specificity)
+              const findOverride = (overrides, name) => {
+                const key = Object.keys(overrides).sort((a, b) => b.length - a.length).find(k => name.includes(k))
+                return key ? overrides[key] : null
+              }
+              const salonOverride      = data.businessType === 'salon'                                              ? findOverride(salonQueryOverrides, nameLower)      : null
+              const clothingOverride   = (data.businessType === 'clothing' || data.businessType === 'online-store') ? findOverride(clothingQueryOverrides, nameLower)    : null
+              const gymOverride        = data.businessType === 'gym'                                                ? findOverride(gymQueryOverrides, nameLower)         : null
+              const coachingOverride   = data.businessType === 'coaching'                                           ? findOverride(coachingQueryOverrides, nameLower)    : null
+              const restaurantOverride = data.businessType === 'restaurant'                                         ? findOverride(restaurantQueryOverrides, nameLower)  : null
+              const realEstateOverride = data.businessType === 'real-estate'                                        ? findOverride(realEstateQueryOverrides, nameLower)  : null
               const suffix = itemContextSuffix[data.businessType] || ''
               const subcatCtx = item.subcategory && item.subcategory.trim()
               const catCtx    = item.category    && item.category.trim()
@@ -757,12 +878,13 @@ export default function Onboarding({ onComplete }) {
               const subcatVisual = subcatCtx && !NON_VISUAL.has(subcatCtx.toLowerCase())
               const catVisual    = catCtx    && !NON_VISUAL.has(catCtx.toLowerCase())
               // Query strategy:
-              //   1. Salon/clothing override (most specific — corrects spelling & adds visual context)
+              //   1. Specific override (salon/clothing/gym/coaching/restaurant/real-estate)
               //   2. cleanName + visual subcategory + suffix  (most context)
               //   3. cleanName + suffix  (when subcategory is non-visual or absent)
               //   4. cleanName alone  (no suffix defined for this business type)
-              const q = salonOverride || clothingOverride || realEstateOverride
-                ? (salonOverride || clothingOverride || realEstateOverride)
+              const specificOverride = salonOverride || clothingOverride || gymOverride || coachingOverride || restaurantOverride || realEstateOverride
+              const q = specificOverride
+                ? specificOverride
                 : suffix
                   ? (subcatVisual
                       ? `${cleanName} ${subcatCtx} ${suffix}`
@@ -853,8 +975,17 @@ export default function Onboarding({ onComplete }) {
 
       {/* ── Header ── */}
       <header className="ob-header">
-        <div className="ob-brand">✦ WebBuilder AI</div>
-        <span className="ob-step-counter">Step {step} of {TOTAL_STEPS}</span>
+        <div className="ob-brand">✦ Sitekraft</div>
+        <div className="ob-header-right">
+          <span className="ob-step-counter">Step {step} of {TOTAL_STEPS}</span>
+          <button
+            className="ob-theme-btn"
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+        </div>
       </header>
 
       {/* ── Progress bar ── */}
