@@ -350,7 +350,7 @@ function Step6({ data, update, next, back }) {
     update('items', [...data.items, { name: '', price: '', description: '', image: null, imagePreview: null, category: '', subcategory: '' }])
 
   const updateItem = (idx, field, val) =>
-    update('items', data.items.map((it, i) => i === idx ? { ...it, [field]: val } : it))
+    update('items', prevItems => prevItems.map((it, i) => i === idx ? { ...it, [field]: val } : it))
 
   const removeItem = idx =>
     update('items', data.items.filter((_, i) => i !== idx))
@@ -430,8 +430,9 @@ function Step6({ data, update, next, back }) {
                   <button
                     className="ob-item-thumb-remove"
                     type="button"
-                    onClick={() => { updateItem(idx, 'image', null); updateItem(idx, 'imagePreview', null) }}
+                    onClick={() => { updateItem(idx, 'image', null); updateItem(idx, 'imagePreview', null); updateItem(idx, 'uploadedDataUrl', null) }}
                   >✕</button>
+                  <span className="ob-item-uploaded-badge">✓ Uploaded</span>
                 </div>
               ) : (
                 <label className="ob-item-upload-btn">
@@ -628,7 +629,7 @@ export default function Onboarding({ onComplete }) {
     facebook:       '',
   })
 
-  const update = (key, val) => setData(prev => ({ ...prev, [key]: val }))
+  const update = (key, val) => setData(prev => ({ ...prev, [key]: typeof val === 'function' ? val(prev[key]) : val }))
   const next   = ()         => setStep(s => Math.min(s + 1, TOTAL_STEPS))
   const back   = ()         => setStep(s => Math.max(s - 1, 1))
 
