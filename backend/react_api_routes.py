@@ -159,6 +159,17 @@ Return ONLY valid JSON:
                 )
             print("[SUCCESS] Service descriptions generated!")
 
+        # Normalize service_descriptions keys to exactly match request.services names
+        # (AI may return lowercased or slightly different keys)
+        if service_descriptions and request.services:
+            normalized = {}
+            sd_lower = {k.lower(): v for k, v in service_descriptions.items()}
+            for svc in request.services:
+                val = service_descriptions.get(svc) or sd_lower.get(svc.lower())
+                if val:
+                    normalized[svc] = val
+            service_descriptions = normalized
+
         # Use Pexels images from onboarding if provided, otherwise fetch from Pixabay
         pexels_service_urls = [url for url in (request.service_images or []) if url]
         if pexels_service_urls:

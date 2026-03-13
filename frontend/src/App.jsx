@@ -451,9 +451,9 @@ function ResultView({ result, userData, onStartOver }) {
       ${items.slice(0, hasCategories ? 30 : 6).map((item, idx) => `
         <div class="item-card" data-anim="card" data-delay="${hasCategories ? '0s' : (idx * 0.1) + 's'}"${item.category && item.category.trim() ? ` data-cat="${item.category.trim().replace(/"/g,'&quot;')}"` : ''}${item.subcategory && item.subcategory.trim() ? ` data-sub="${item.subcategory.trim().replace(/"/g,'&quot;')}"` : ''}>
           ${(() => {
-            const imgSrc = item.imagePreview
-              || item.fetchedImage
+            const imgSrc = item.fetchedImage
               || (result.service_images && result.service_images[item.name])
+              || item.imagePreview
               || null
             return imgSrc
               ? `<img src="${imgSrc}" alt="${item.name}" loading="lazy" onerror="this.style.display='none'">`
@@ -461,7 +461,7 @@ function ResultView({ result, userData, onStartOver }) {
           })()}
           <div class="item-card-body">
             <h3>${item.name}</h3>
-            <p>${item.description || (result.service_descriptions && result.service_descriptions[item.name]) || `Discover our ${item.name.toLowerCase()} — crafted with care and delivered with expertise.`}</p>
+            <p>${item.description || (result.service_descriptions && (result.service_descriptions[item.name] || result.service_descriptions[item.name.toLowerCase()] || Object.entries(result.service_descriptions).find(([k]) => k.toLowerCase() === item.name.toLowerCase())?.[1])) || ''}</p>
             <div class="item-card-footer">
               ${item.price ? `<span class="item-price">${item.price}</span>` : `<span class="item-price" style="color:#94a3b8;font-size:14px">Contact for price</span>`}
               <button class="item-btn">${isProduct ? 'Order Now' : 'Book Now'}</button>

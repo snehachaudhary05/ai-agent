@@ -177,4 +177,67 @@ def generate_service_descriptions(
         return _parse_json(text)
     except Exception as e:
         print(f"[GROQ] generate_service_descriptions failed: {e}")
-        return {}
+
+    # Fallback descriptions — business-type-aware, varied by item hash
+    def _fallback_desc(svc: str, btype: str) -> str:
+        s = svc.strip()
+        sl = s.lower()
+        bt = (btype or "").lower()
+        if any(t in bt for t in ["restaurant", "cafe", "food", "dhaba", "kitchen", "bistro"]):
+            templates = [
+                f"A rich and flavorful {sl}, crafted with fresh ingredients and authentic spices.",
+                f"Savor the irresistible taste of our {sl}, made fresh to order every time.",
+                f"A classic {sl} bursting with bold flavors and time-honored recipes.",
+                f"Indulge in our signature {sl}, prepared with the finest seasonal ingredients.",
+                f"A beloved {sl} that warms the soul — perfectly spiced and beautifully presented.",
+            ]
+        elif any(t in bt for t in ["salon", "spa", "beauty", "parlour", "parlor"]):
+            templates = [
+                f"Rejuvenate with our expert {sl} treatment, tailored to bring out your natural radiance.",
+                f"Our professional {sl} service leaves you feeling refreshed, confident, and glowing.",
+                f"Our expert {sl} treatment uses top-quality products and skilled hands for real results.",
+            ]
+        elif any(t in bt for t in ["gym", "fitness", "yoga", "studio", "crossfit"]):
+            templates = [
+                f"Push your limits with {sl} — expert-led, results-driven, and built for all fitness levels.",
+                f"Transform your body with our {sl} program — structured, motivated, and highly effective.",
+                f"Our {sl} sessions are designed to maximize results while keeping every workout engaging.",
+            ]
+        elif any(t in bt for t in ["coaching", "tuition", "classes", "academy", "institute", "tutor"]):
+            templates = [
+                f"Master {sl} with expert guidance, structured lessons, and proven results.",
+                f"Our {sl} program is designed to build deep understanding and exam-ready confidence.",
+                f"Excel in {sl} with personalized mentoring and a focused, results-driven curriculum.",
+                f"From basics to advanced — our {sl} course prepares you for success at every level.",
+            ]
+        elif bt == "online-store" or any(t in bt for t in ["clothing", "boutique", "fashion"]):
+            templates = [
+                f"A stunning {sl} with rich fabric, sharp cuts, and a finish that turns heads.",
+                f"A stunning {sl} that blends tradition with modern style — designed to make you stand out.",
+                f"Our {sl} collection redefines elegance with superior craftsmanship and rich detailing.",
+            ]
+        elif any(t in bt for t in ["shop", "store"]):
+            templates = [
+                f"Discover our {sl} — thoughtfully selected for quality, value, and everyday satisfaction.",
+                f"Our {sl} brings you the best in its category — reliable, affordable, and built to impress.",
+                f"Experience the difference with our {sl} — a customer favorite for good reason.",
+            ]
+        elif any(t in bt for t in ["clinic", "hospital", "medical", "dental", "health"]):
+            templates = [
+                f"Expert {sl} care delivered with compassion, precision, and your wellbeing in mind.",
+                f"Our {sl} service combines advanced techniques with personalized, patient-first care.",
+            ]
+        elif any(t in bt for t in ["real-estate", "property", "realty", "real estate"]):
+            templates = [
+                f"Discover our {sl} — thoughtfully designed for modern living and lasting value.",
+                f"A well-designed {sl} offering the perfect blend of comfort, space, and smart investment.",
+            ]
+        else:
+            templates = [
+                f"Our {sl} is delivered with genuine expertise and attention to every detail.",
+                f"Our {sl} service is crafted to exceed your expectations every single time.",
+                f"Quality you can count on — our {sl} is built around your needs and satisfaction.",
+            ]
+        return templates[hash(sl) % len(templates)]
+
+    return {svc: _fallback_desc(svc, business_type) for svc in services}
