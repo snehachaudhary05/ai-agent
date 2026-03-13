@@ -10,8 +10,7 @@ An AI-powered website builder that generates complete, production-ready React we
 - **Full React/Vite generation** — produces real component-based code, not templates
 - **Auto-deployment** — deploys generated sites directly to Vercel
 - **Stock image integration** — pulls relevant images from Pexels & Pixabay
-- **Supabase backend** — persists sessions and site data
-- **Supports** e-commerce, booking pages, media uploads, and admin panels
+- **Supports** e-commerce, booking pages, media uploads, and contact forms
 
 ## Tech Stack
 
@@ -20,7 +19,6 @@ An AI-powered website builder that generates complete, production-ready React we
 | Frontend | React, Vite |
 | Backend | Python, FastAPI |
 | AI | Google Gemini 2.5 Flash |
-| Database | Supabase |
 | Deployment | Vercel (generated sites), Render (backend) |
 | Images | Pexels API, Pixabay API |
 
@@ -32,7 +30,6 @@ responsive ai-agent/
 │   ├── autonomous_agent.py        # Main FastAPI app & AI agent
 │   ├── react_builder.py           # Gemini-powered React site generator
 │   ├── vercel_deployer.py         # Automated Vercel deployment
-│   ├── supabase_config.py         # Database manager
 │   ├── pexels_helper.py           # Stock image fetching
 │   ├── professional_copywriter.py # AI copywriting
 │   └── requirements.txt
@@ -49,7 +46,7 @@ responsive ai-agent/
 
 - Python 3.11+
 - Node.js 18+
-- API keys: `GEMINI_API_KEY`, `SUPABASE_URL`, `SUPABASE_KEY`, `VERCEL_TOKEN`, `PEXELS_API_KEY`
+- API keys: `GEMINI_API_KEY`, `VERCEL_TOKEN`, `PEXELS_API_KEY`
 
 ### Backend
 
