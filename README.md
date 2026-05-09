@@ -1,6 +1,25 @@
-# Sitekraft — AI Website Builder
+# Sitekraft — AI-Powered Website Builder
 
 **Live demo:** [ai-agent-gold-rho.vercel.app](https://ai-agent-gold-rho.vercel.app)
+
+---
+
+## Team Details
+
+| Roll Number | Name |
+|-------------|------|
+| 2210990857 | Sneha Chaudhary |
+| 2210990517 | Koustubh Kukreti |
+
+**Project Title:** SITEKRAFT — AI-POWERED WEBSITE BUILDER
+
+**Type:** Copyright
+
+**Current Status:** Copyright Filed — Diary No. SW-20230/2026-CO, Filing Date: 28/04/2026 (Receipt No. 240456)
+
+---
+
+## About
 
 An AI-powered website builder that generates complete, production-ready React websites from a simple text description and deploys them to Vercel instantly.
 
@@ -22,21 +41,22 @@ An AI-powered website builder that generates complete, production-ready React we
 | Deployment | Vercel (generated sites), Render (backend) |
 | Images | Pexels API, Pixabay API |
 
-## Project Structure
+## Repository Structure
 
 ```
-responsive ai-agent/
-├── backend/
-│   ├── autonomous_agent.py        # Main FastAPI app & AI agent
-│   ├── react_builder.py           # Gemini-powered React site generator
-│   ├── vercel_deployer.py         # Automated Vercel deployment
-│   ├── pexels_helper.py           # Stock image fetching
-│   ├── professional_copywriter.py # AI copywriting
+├── IPR_Submission_Proof/       # Copyright Form-XIV, NOC, submission PDFs
+├── Report_and_PPT/             # Project report
+├── backend/                    # Python FastAPI backend & AI agent
+│   ├── autonomous_agent.py
+│   ├── react_builder.py
+│   ├── vercel_deployer.py
+│   ├── pexels_helper.py
+│   ├── professional_copywriter.py
 │   └── requirements.txt
-└── frontend/
+└── frontend/                   # React/Vite frontend
     ├── src/
-    │   ├── App.jsx                # Main chat interface
-    │   └── Onboarding.jsx         # Onboarding flow
+    │   ├── App.jsx
+    │   └── Onboarding.jsx
     └── package.json
 ```
 

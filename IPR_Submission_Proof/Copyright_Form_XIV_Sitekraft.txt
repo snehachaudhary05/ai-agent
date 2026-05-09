@@ -1,0 +1,385 @@
+================================================================================
+                        GOVERNMENT OF INDIA
+                OFFICE OF THE REGISTRAR OF COPYRIGHTS
+                   (Ministry of Education, New Delhi)
+
+         FORM XIV — APPLICATION FOR REGISTRATION OF COPYRIGHT
+                       IN A COMPUTER PROGRAMME
+               [See Rule 16(4) of the Copyright Rules, 2013]
+================================================================================
+
+DIARY NO. : _______________________ (to be filled by office)
+DATE      : _______________________
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART I — PARTICULARS OF THE APPLICANT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+    NOTE: This is a work of JOINT AUTHORSHIP. Both authors are co-applicants.
+    Either author may sign and file on behalf of both (with the other's consent).
+
+1.  Full name of the Applicant(s):
+
+    Applicant 1 : SNEHA CHAUDHARY
+    Applicant 2 : KOUSTUBH KUKRETI
+
+2.  Address of the Applicant(s):
+
+    Applicant 1 — SNEHA CHAUDHARY:
+    2922, Near Panjiri Plant
+    Morinda, Punjab
+    City: Morinda          Pin: 140401
+    State: Punjab          Country: India
+
+    Applicant 2 — KOUSTUBH KUKRETI:
+    3127/2, Sector 44D
+    Chandigarh
+    City: Chandigarh       Pin: 160047
+    State: Chandigarh      Country: India
+
+3.  Nationality of the Applicants:
+
+    Sneha Chaudhary  : Indian
+    Koustubh Kukreti : Indian
+
+4.  Nature of Applicants' Interest (tick as applicable):
+
+    [✓] Authors of the work (joint authors)
+    [✓] Owners of Copyright in the work (joint owners — 50% each)
+    [ ] Assignee of Copyright
+    [ ] Exclusive Licensee
+
+5.  Contact Details:
+
+    Applicant 1 Email : munim68.ai@gmail.com
+    Applicant 1 Phone : +91 7973235391
+    Applicant 2 Email : koustubhkukreti@gmail.com
+    Applicant 2 Phone : +91 7347299940
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART II — PARTICULARS OF THE WORK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6.  Class of Work (tick as applicable):
+
+    [✓] Literary Work — Computer Programme / Software
+        (as defined under Section 2(o) read with Section 2(ffc)
+         of the Copyright Act, 1957)
+
+7.  Title of the Work:
+
+    SITEKRAFT — AI-POWERED WEBSITE BUILDER
+
+8.  Short Description of the Work:
+
+    Sitekraft is an AI-powered full-stack web application jointly developed by
+    Sneha Chaudhary and Koustubh Kukreti, with academic guidance from their
+    college mentor. The application enables users to generate complete,
+    production-ready React/Vite websites from natural language descriptions
+    through a conversational chat interface. The system integrates with Google
+    Gemini 2.5 Flash (AI engine) to generate component-based React code, fetches
+    relevant stock images from Pexels and Pixabay APIs, generates professional
+    AI-written copy, and automatically deploys the generated website to Vercel
+    with a live URL — all within a single conversational session.
+
+    The software comprises:
+      (a) A Python/FastAPI backend — including an autonomous AI agent, React
+          code generator, Vercel deployment module, stock image helpers, and
+          professional copywriting module.
+      (b) A React/Vite frontend — including a conversational chat UI, multi-step
+          onboarding flow, live preview, theme switching, and deployment status
+          display.
+
+    NOTE ON AUTHORSHIP: The mentor provided academic supervision and guidance
+    only, and does not hold authorship or copyright in the work. All original
+    code, design, and creative expression were authored exclusively by
+    Sneha Chaudhary and Koustubh Kukreti in equal measure.
+
+9.  Language of the Work:
+
+    Source code written in: JavaScript (React/JSX), Python 3.11
+    User interface language: English
+
+10. Version / Edition:
+
+    Version 1.0
+
+11. Total Lines of Code (approximate):
+
+    Frontend (JavaScript/JSX) : ~5,000 lines
+    Backend (Python)          : ~4,000 lines
+    Total                     : ~9,000 lines
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART III — PARTICULARS OF AUTHORSHIP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+12. Name and Address of the Author(s):
+
+    Author 1:
+    Name        : SNEHA CHAUDHARY
+    Address     : 2922, Near Panjiri Plant
+                  Morinda, Punjab
+                  City: Morinda          Pin: 140401
+                  State: Punjab          Country: India
+    Nationality : Indian
+    Domicile    : India
+    Contribution: 50% — Co-author (backend, frontend, AI integration, deployment)
+
+    Author 2:
+    Name        : KOUSTUBH KUKRETI
+    Address     : 3127/2, Sector 44D
+                  Chandigarh
+                  City: Chandigarh       Pin: 160047
+                  State: Chandigarh      Country: India
+    Nationality : Indian
+    Domicile    : India
+    Contribution: 50% — Co-author (backend, frontend, AI integration, deployment)
+
+13. Is the work a work of joint authorship?
+
+    [✓] Yes       [ ] No
+
+    (Section 2(z), Copyright Act, 1957 — work produced by collaboration of two
+    authors where contribution of each is not distinct from the other)
+
+14. Is the author deceased?
+
+    Author 1 (Sneha Chaudhary)  : [ ] Yes  [✓] No
+    Author 2 (Koustubh Kukreti) : [ ] Yes  [✓] No
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART IV — PUBLICATION DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+15. Is the work Published or Unpublished?
+
+    [✓] Unpublished
+
+16. Year and Country of First Publication:
+
+    Not Applicable
+
+17. Date of first making the work available to the public:
+
+    Not Applicable
+
+18. Mode of Publication / Availability:
+
+    Not Applicable
+
+19. Name and Address of the Publisher:
+
+    Not Applicable (work is unpublished)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART V — OWNERSHIP OF COPYRIGHT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+20. Name and address of the owner(s) of the copyright:
+
+    Owner 1 : SNEHA CHAUDHARY — 50% share
+              (same as applicant and author above)
+    Owner 2 : KOUSTUBH KUKRETI — 50% share
+              (same as applicant and author above)
+
+21. Rights claimed:
+
+    [✓] Reproduction right
+    [✓] Right to issue copies to the public
+    [✓] Right of communication to the public (online / electronic transmission)
+    [✓] Right of adaptation (including modification and derivative works)
+    [✓] Translation right (into other programming languages or human languages)
+    [✓] All other rights comprised in the copyright
+
+22. Has any assignment of copyright been made?
+
+    [ ] Yes       [✓] No
+
+23. Is there any existing licence granted on this work?
+
+    [ ] Yes       [✓] No
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART VI — TECHNICAL DETAILS OF THE SOFTWARE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+24. Programming Languages Used:
+
+    (a) JavaScript (ES2022+ / JSX)  — Frontend
+    (b) Python 3.11+                — Backend
+
+25. Frameworks and Libraries:
+
+    Frontend : React 19.2, Vite 7.3, Axios, JSZip
+    Backend  : FastAPI 0.115, Uvicorn, Python-dotenv, Requests
+
+26. AI / External APIs Integrated (not claimed as original):
+
+    - Google Gemini 2.5 Flash API    (AI text/code generation)
+    - Pexels API                     (stock image retrieval)
+    - Pixabay API                    (stock image retrieval)
+    - Vercel API                     (automated deployment)
+    - Groq API / OpenRouter API      (fallback AI providers)
+
+    NOTE: The integration logic, prompts, orchestration code, UI/UX design,
+    and the overall system architecture are original works of the Author.
+    The external APIs and their underlying models are not claimed.
+
+27. Operating Environment:
+
+    Platform   : Cross-platform (Web Browser — any OS)
+    Server OS  : Linux (deployed on Render.com)
+    Client     : Any modern web browser (Chrome, Firefox, Edge, Safari)
+
+28. Nature of the Computer Programme (tick all applicable):
+
+    [✓] Web Application
+    [✓] AI / Machine Learning Application
+    [✓] Full-stack Application (frontend + backend)
+    [ ] Mobile Application
+    [ ] Desktop Application
+    [ ] Embedded System
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART VII — LIST OF FILES COMPRISING THE WORK
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+29. Key source files forming part of the registered work:
+
+    BACKEND (Python):
+    ─────────────────
+    autonomous_agent.py           — Main FastAPI application & AI chat agent
+    react_builder.py              — Gemini-powered React website generator
+    react_template_generator.py   — React/Vite project file structure creator
+    vercel_deployer.py            — Automated Vercel API deployment module
+    professional_copywriter.py    — AI-assisted copywriting module
+    pexels_helper.py              — Pexels stock image integration
+    pixabay_helper.py             — Pixabay stock image integration
+    autonomous_agent_react_helper.py — Chat-to-website conversion helpers
+    react_api_routes.py           — FastAPI API endpoint definitions
+    supabase_config.py            — Database configuration module
+    requirements.txt              — Python dependency manifest
+
+    FRONTEND (JavaScript / React):
+    ────────────────────────────────
+    src/App.jsx                   — Main chat interface & result display
+    src/Onboarding.jsx            — Multi-step business onboarding flow
+    src/useTheme.js               — Dark/light mode theme hook
+    src/App.css                   — Main application stylesheet
+    src/Onboarding.css            — Onboarding page stylesheet
+    src/index.css                 — Global stylesheet
+    src/main.jsx                  — Application entry point
+    package.json                  — Node.js dependency manifest
+    vite.config.js                — Vite build configuration
+
+    CONFIGURATION & DEPLOYMENT:
+    ────────────────────────────
+    vercel.json                   — Vercel deployment configuration
+    render.yaml                   — Render.com deployment specification
+    Dockerfile                    — Docker containerization definition
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART VIII — DECLARATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+We, SNEHA CHAUDHARY and KOUSTUBH KUKRETI, do hereby jointly and severally
+solemnly declare as follows:
+
+1. That we are the joint authors and original co-creators of the computer
+   programme titled "SITEKRAFT — AI-POWERED WEBSITE BUILDER" and we are
+   entitled to apply for registration of copyright therein.
+
+2. That the said work has been jointly created by us through our combined
+   independent skill, labour, judgment, and creative effort in equal measure
+   (50% each), and is not a copy of any other existing programme or work in
+   which copyright subsists.
+
+3. That our college mentor provided academic guidance and supervision only, and
+   has not made any original creative contribution to the code, design, or
+   expression of the work. Accordingly, the mentor does not hold authorship or
+   any copyright interest in the said work.
+
+4. That to the best of our knowledge, no suit or proceeding is pending in any
+   Court of Law in India or elsewhere with respect to the copyright in the said
+   work.
+
+5. That the particulars mentioned in this application are true and correct to the
+   best of our knowledge, information, and belief.
+
+6. That the work does not infringe upon the copyright of any third party.
+
+7. That neither of us has assigned the copyright in the said work to any person,
+   nor have we granted any exclusive licence in respect of the copyright.
+
+
+Place : Chitkara University, Rajpura
+
+Date  : 26/04/2026
+
+
+Signature of Applicant 1:                  Signature of Applicant 2:
+
+
+______________________________             ______________________________
+SNEHA CHAUDHARY                            KOUSTUBH KUKRETI
+(Co-Author / Co-Owner — 50%)               (Co-Author / Co-Owner — 50%)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PART IX — CHECKLIST OF ENCLOSURES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The following documents must be enclosed with this application:
+
+  [ ] 1. Three copies of the source code (printed or on storage media)
+         — highlight unique/original portions
+  [ ] 2. Demand Draft / Online payment receipt for the prescribed fee
+         (₹500/- per work, payable to "Registrar of Copyrights, New Delhi")
+  [ ] 3. Power of Attorney (if filed through an agent / advocate)
+  [ ] 4. NOC from publisher (not required here — self-published)
+  [ ] 5. Proof of authorship (e.g., git log, development timeline, screenshots)
+  [ ] 6. Proof of publication (e.g., live URL screenshot, deployment logs)
+  [ ] 7. Identity proof of BOTH applicants (Aadhaar / PAN / Passport copy)
+  [ ] 8. Written consent from Koustubh Kukreti authorising Sneha Chaudhary
+         to file on behalf of both (if only one person is filing)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IMPORTANT NOTES FOR FILING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  • File this application online at: https://copyright.gov.in
+    (Portal: e-Filing of Copyright Registration Application)
+
+  • Alternatively, submit in person or by post to:
+    The Registrar of Copyrights
+    Copyright Office, Boudhik Sampada Bhawan,
+    Plot No. 32, Sector 14, Dwarka,
+    New Delhi — 110 078
+
+  • Prescribed fee: ₹500 per literary/computer programme work
+    (as per the Copyright (Amendment) Rules, 2021)
+
+  • Upon acceptance, a Diary Number is issued. Registration certificate
+    (if no objections are raised during the 30-day waiting period) is
+    issued within 2–3 months.
+
+  • Copyright in a computer programme in India is protected for the lifetime
+    of the author + 60 years (Section 22, Copyright Act, 1957).
+
+  • Registration is not mandatory for copyright to subsist (copyright arises
+    automatically upon creation), but registration serves as prima facie
+    evidence of ownership in legal proceedings.
+
+================================================================================
+                           END OF FORM XIV
+================================================================================
